@@ -1,12 +1,14 @@
 {
   "name": "human-compiler",
-  "version": "0.1.0",
-  "description": "Compile humans into AI agents through deep interviews",
+  "version": "0.2.0",
+  "description": "Compile humans into AI agents through deep interviews — with multi-LLM export and profile analytics",
   "type": "module",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "generate": "bun run scripts/generate-plugin.ts"
+    "generate": "bun run scripts/generate-plugin.ts",
+    "export": "bun run scripts/export-profile.ts",
+    "analytics": "bun run scripts/profile-analytics.ts"
   },
   "dependencies": {
     "handlebars": "^4.7.8",

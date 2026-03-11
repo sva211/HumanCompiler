@@ -18,6 +18,8 @@
 
 A Claude Code plugin that conducts deep behavioral interviews, reads work artifacts via MCP tools, and generates installable plugins that authentically embody a person's thinking, communication, and decision-making.
 
+This fork adds **multi-LLM export** and **profile analytics** on top of the original. You can now export compiled profiles as system prompts for OpenAI (GPT-4.1, o3), Google Gemini 2.5, or portable Markdown — and get completeness insights before sharing them.
+
 ---
 
 ## How It Works
@@ -204,6 +206,70 @@ The behavioral profile captures:
 
 ---
 
+## Multi-LLM Export
+
+Export compiled profiles as system prompts for any LLM — not just Claude.
+
+```bash
+# Export to all formats
+bun run export ~/.human-compiler/jane-doe/profile.yaml
+
+# Export to a specific format
+bun run export ~/.human-compiler/jane-doe/profile.yaml --format openai
+bun run export ~/.human-compiler/jane-doe/profile.yaml --format gemini
+bun run export ~/.human-compiler/jane-doe/profile.yaml --format markdown
+```
+
+Supported export formats:
+| Format | Output | Use Case |
+|--------|--------|----------|
+| `openai` | System prompt for GPT-4.1 / o3 / o4-mini | Use compiled persona in OpenAI Chat API |
+| `gemini` | System instruction for Gemini 2.5 Pro/Flash | Use in Google Gemini API |
+| `markdown` | Full behavioral profile document | Documentation, sharing, onboarding |
+| `all` | All of the above | Default — generates everything |
+
+Exports are saved to `~/.human-compiler/<name>/exports/`.
+
+---
+
+## Profile Analytics
+
+Get insights and completeness scores for any compiled profile.
+
+```bash
+bun run analytics ~/.human-compiler/jane-doe/profile.yaml
+```
+
+Output:
+```
+  Profile Analytics: Jane Doe
+  ========================================
+
+  Completeness: 100%
+  [####################] 8/8 sections
+
+  Interview: 8/8 phases
+  Status: Complete
+  Confidence: 0.88/10
+
+  Expertise: 4 domains
+    Expert: 1
+    Advanced: 2
+  Top domains: Product analytics, Platform API design
+  Technical skills: 5
+
+  Communication Profile:
+    Writing style: Captured
+    Tone spectrum: Captured
+    Patterns: 5
+    Vocabulary: 6 terms
+
+  Artifacts: 3 documents analyzed
+  Synthesized patterns: 5
+```
+
+---
+
 ## Development
 
 ```bash
@@ -221,6 +287,12 @@ bun test e2e
 
 # Generate a plugin from a profile
 bun run scripts/generate-plugin.ts ~/.human-compiler/<name>/profile.yaml
+
+# Export profile to other LLM formats
+bun run scripts/export-profile.ts ~/.human-compiler/<name>/profile.yaml --format all
+
+# Analyze a profile
+bun run scripts/profile-analytics.ts ~/.human-compiler/<name>/profile.yaml
 ```
 
 ---

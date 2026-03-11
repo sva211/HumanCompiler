@@ -8,12 +8,16 @@ A Claude Code plugin that compiles humans into AI agents through deep behavioral
 - `agents/interviewer.md` — Dedicated interview agent
 - `scripts/profile-manager.ts` — Profile CRUD (init, load, update, finalize)
 - `scripts/generate-plugin.ts` — Generates output Claude Code plugins from profiles
+- `scripts/export-profile.ts` — Multi-LLM export (OpenAI, Gemini, Markdown formats)
+- `scripts/profile-analytics.ts` — Profile completeness & insight analytics
 - `scripts/templates/*.hbs` — Handlebars templates for generated plugin files
 
 ## Commands
 - `bun install` — Install dependencies
 - `bun test` — Run all tests
 - `bun run scripts/generate-plugin.ts <profile-path>` — Generate plugin from profile
+- `bun run scripts/export-profile.ts <profile-path> [--format openai|gemini|markdown|all]` — Export to other LLMs
+- `bun run scripts/profile-analytics.ts <profile-path>` — Analyze profile completeness
 
 ## Conventions
 - TypeScript with strict mode, ES modules
